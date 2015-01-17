@@ -1,0 +1,10 @@
+*.classpath
+*.project
+*.log
+.settings
+target
+logs
+hsf.configuration
+bin
+.tomcatplugin
+.#webclasspath
