@@ -9,10 +9,10 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<context:component-scan base-package="com.kaisen.wirelessportal.service.impl" />
-	<dubbo:application name="annotation-consumer" />
+	<context:component-scan base-package="com.kaisen.wirelessportal" />
+	<dubbo:application name="wireless-portal" />
 	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
 
 	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
-	<dubbo:annotation package="com.kaisen.wirelessportal.service.impl" />
+	<dubbo:annotation package="com.kaisen.wirelessportal.services" />
 </beans>
