@@ -2,20 +2,28 @@ package com.kaisen.wirelessportal;
 
 import java.io.Serializable;
 
-import com.kaisen.common.result.ResultEnum;
-
 public class WirelessPortalResult implements Serializable {
 	private static final long serialVersionUID = -2630167382685485457L;
-	private ResultEnum resultEnum;
+	private Integer resultCode; // 错误码
+	private String message; // 错误信息
+
+	public Integer getResultCode() {
+		return resultCode;
+	}
+
+	public void setResultCode(Integer resultCode) {
+		this.resultCode = resultCode;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	private Object data;
-
-	public ResultEnum getResultEnum() {
-		return resultEnum;
-	}
-
-	public void setResultEnum(ResultEnum resultEnum) {
-		this.resultEnum = resultEnum;
-	}
 
 	public Object getData() {
 		return data;

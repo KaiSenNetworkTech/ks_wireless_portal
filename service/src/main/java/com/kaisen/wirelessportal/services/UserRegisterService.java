@@ -17,8 +17,6 @@ public class UserRegisterService extends BaseService {
 
 	@Override
 	public WirelessPortalResult process(WirelessPortalReqBody<?> requestBody) {
-		WirelessPortalResult result = new WirelessPortalResult();
-
 		UserInfoDO userInfoDO = (UserInfoDO) requestBody.getPrivateParams();
 
 		CallServiceResult<Void> callServiceResult = userService
@@ -27,8 +25,7 @@ public class UserRegisterService extends BaseService {
 			session.setAttribute("CODE", "123");
 		}
 
-		result.setResultEnum(callServiceResult.getResultEnum());
-		return result;
+		return getResult(callServiceResult);
 	}
 
 	@Override

@@ -17,15 +17,12 @@ public class UpdateUserInfoService extends BaseService {
 
 	@Override
 	public WirelessPortalResult process(WirelessPortalReqBody<?> requestBody) {
-		WirelessPortalResult result = new WirelessPortalResult();
-
 		UserInfoDO userInfoDO = (UserInfoDO) requestBody.getPrivateParams();
 
 		CallServiceResult<Void> callServiceResult = userService
 				.updateUserInfo(userInfoDO);
 
-		result.setResultEnum(callServiceResult.getResultEnum());
-		return result;
+		return getResult(callServiceResult);
 	}
 
 	@Override

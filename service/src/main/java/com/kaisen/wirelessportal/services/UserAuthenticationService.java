@@ -17,8 +17,6 @@ public class UserAuthenticationService extends BaseService {
 
 	@Override
 	public WirelessPortalResult process(WirelessPortalReqBody<?> requestBody) {
-		WirelessPortalResult result = new WirelessPortalResult();
-
 		UserInfoDO userInfoDO = (UserInfoDO) requestBody.getPrivateParams();
 
 		CallServiceResult<UserInfoDO> callServiceResult = userService
@@ -28,9 +26,7 @@ public class UserAuthenticationService extends BaseService {
 					callServiceResult.getReturnObject());
 		}
 
-		result.setResultEnum(callServiceResult.getResultEnum());
-		result.setData(callServiceResult.getReturnObject());
-		return result;
+		return getResult(callServiceResult);
 	}
 
 	@Override
