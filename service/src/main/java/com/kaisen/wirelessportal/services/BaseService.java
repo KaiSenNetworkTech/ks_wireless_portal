@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kaisen.common.result.CallServiceResult;
 import com.kaisen.common.result.ResultEnum;
+import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.wirelessportal.WirelessPortalResult;
 import com.kaisen.wirelessportal.WirelessPortalService;
 
@@ -32,5 +33,24 @@ public abstract class BaseService implements WirelessPortalService {
 				.getReturnObject());
 
 		return result;
+	}
+
+	@Override
+	public boolean needLogin() {
+		return false;
+	}
+
+	@Override
+	public boolean isLogin() {
+		return session.getAttribute("USER_INFO") != null;
+	}
+
+	@Override
+	public boolean isNotLogin() {
+		return !this.isLogin();
+	}
+
+	protected UserInfoDO getUserInfoFromSession() {
+		return (UserInfoDO) session.getAttribute("USER_INFO");
 	}
 }

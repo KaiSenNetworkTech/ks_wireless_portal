@@ -7,4 +7,10 @@ public interface WirelessPortalService {
 	WirelessPortalResult process(WirelessPortalReqBody<?> requestBody);
 
 	Class<?> getPrivateParamsMappingClass();
+
+	boolean needLogin();
+
+	boolean isLogin();
+
+	boolean isNotLogin();
 }

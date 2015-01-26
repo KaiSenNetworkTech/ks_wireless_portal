@@ -1,6 +1,5 @@
 package com.kaisen.wirelessportal;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,39 +21,37 @@ import com.alibaba.fastjson.JSON;
  */
 
 @Controller
-@RequestMapping("/interfaces")
+@RequestMapping("/")
 public class WirelessPortalMain {
 	@Resource
 	private ApplicationContext applicationContext;
 
-	@RequestMapping(value = "{interfaceName}", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "api/{interfaceName}", consumes = "application/json; charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String processJSON(@PathVariable String interfaceName,
 			@RequestBody String requestBodyStr) {
+
+		WirelessPortalResult result = null;
+
 		WirelessPortalService service = (WirelessPortalService) applicationContext
 				.getBean(interfaceName);
-		WirelessPortalResult result = service
-				.process((WirelessPortalReqBody<?>) JSON.parseObject(
-						requestBodyStr, service.getPrivateParamsMappingClass()));
+
+		if (service == null)
+			result = WirelessPortalResult.PARAMS_ERROR_RESULT;
+		else if (service.needLogin() && service.isNotLogin())
+			result = WirelessPortalResult.NOT_LOGIN_ERROR_RESULT;
+		else
+			result = service.process((WirelessPortalReqBody<?>) JSON
+					.parseObject(requestBodyStr,
+							service.getPrivateParamsMappingClass()));
 
 		return JSON.toJSONString(result);
 	}
 
-	@RequestMapping(value = "{interfaceName}", params = "format=xml", consumes = "application/xml; charset=UTF-8", produces = "application/xml; charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "api/{interfaceName}", params = "format=xml", consumes = "application/xml; charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String processXML(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable String interfaceName) {
 		return null;
-	}
-
-	// @Override
-	// public void setApplicationContext(ApplicationContext applicationContext)
-	// throws BeansException {
-	// this.applicationContext = applicationContext;
-	// }
-
-	@PostConstruct
-	private void init() throws Exception {
-
 	}
 }
