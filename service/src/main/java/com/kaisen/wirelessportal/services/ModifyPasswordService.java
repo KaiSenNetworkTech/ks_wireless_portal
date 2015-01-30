@@ -2,6 +2,7 @@ package com.kaisen.wirelessportal.services;
 
 import static com.kaisen.common.result.ResultEnum.PASSWORD_FORMAT_ERROR;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 
@@ -26,7 +27,8 @@ public class ModifyPasswordService extends
 			UserInfoDO userInfoDO = super.getUserInfoFromSession();
 			userInfoDO.setPassword(modifyPasswordDO.getNewPassword());
 
-			return StringUtils.equals(modifyPasswordDO.getOldPassword(),
+			return StringUtils.equals(
+					DigestUtils.md5Hex(modifyPasswordDO.getOldPassword()),
 					userInfoDO.getPassword()) ? getResult(userService
 					.updateUserInfo(userInfoDO)) : WirelessPortalResult
 					.buildErrorResult(ResultEnum.OLD_PASSWORD_ERROR);
