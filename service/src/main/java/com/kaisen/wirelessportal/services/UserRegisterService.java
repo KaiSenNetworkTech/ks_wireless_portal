@@ -1,35 +1,31 @@
 package com.kaisen.wirelessportal.services;
 
+import static com.kaisen.common.result.ResultEnum.PASSWORD_FORMAT_ERROR;
+
 import org.springframework.stereotype.Controller;
 
+import wirelessportal.common.utils.PasswordUtil;
+
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.kaisen.common.result.CallServiceResult;
+import com.alibaba.fastjson.JSON;
 import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.service.IUserService;
-import com.kaisen.wirelessportal.WirelessPortalReqBody;
 import com.kaisen.wirelessportal.WirelessPortalResult;
-import com.kaisen.wirelessportal.params.mapping.UserInfoMapping;
 
 @Controller(value = "userRegister")
-public class UserRegisterService extends BaseService {
+public class UserRegisterService extends BaseService<UserInfoDO> {
 	@Reference(version = "1.0.0")
 	private IUserService userService;
 
 	@Override
-	public WirelessPortalResult process(WirelessPortalReqBody<?> requestBody) {
-		UserInfoDO userInfoDO = (UserInfoDO) requestBody.getPrivateParams();
-
-		CallServiceResult<Void> callServiceResult = userService
-				.register(userInfoDO);
-		if (callServiceResult.isSuccessful()) {
-			session.setAttribute("CODE", "123");
-		}
-
-		return getResult(callServiceResult);
+	public WirelessPortalResult doBusiness(UserInfoDO userInfoDO) {
+		return PasswordUtil.passwordFormatCheck(userInfoDO.getPassword()) ? getResult(userService
+				.register(userInfoDO)) : WirelessPortalResult
+				.buildErrorResult(PASSWORD_FORMAT_ERROR);
 	}
 
 	@Override
-	public Class<UserInfoMapping> getPrivateParamsMappingClass() {
-		return UserInfoMapping.class;
+	protected UserInfoDO parseRequestBody(String requestBody) {
+		return JSON.parseObject(requestBody, UserInfoDO.class);
 	}
 }

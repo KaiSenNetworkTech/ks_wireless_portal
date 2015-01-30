@@ -11,6 +11,7 @@ public class WirelessPortalResult implements Serializable {
 
 	public final static WirelessPortalResult PARAMS_ERROR_RESULT = buildErrorResult(ResultEnum.PARAMS_ERROR);
 	public final static WirelessPortalResult NOT_LOGIN_ERROR_RESULT = buildErrorResult(ResultEnum.NOT_LOGIN_ERROR);
+	public final static WirelessPortalResult ILLEGAL_REQUEST_ERROR_RESULT = buildErrorResult(ResultEnum.ILLEGAL_REQUEST_ERROR);
 
 	public Integer getResultCode() {
 		return resultCode;
@@ -38,7 +39,7 @@ public class WirelessPortalResult implements Serializable {
 		this.data = data;
 	}
 
-	private static WirelessPortalResult buildErrorResult(ResultEnum resultEnum) {
+	public static WirelessPortalResult buildErrorResult(ResultEnum resultEnum) {
 		WirelessPortalResult result = new WirelessPortalResult();
 		result.setResultCode(resultEnum.getResultCode());
 		result.setMessage(resultEnum.getMessage());
