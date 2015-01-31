@@ -21,32 +21,8 @@ public class ResetPasswordService extends
 	}
 
 	class ResetPasswordDO {
-		private String mobilePhoneNo;
-		private String newPassword;
-		private String verificationCode;
-
-		public String getMobilePhoneNo() {
-			return mobilePhoneNo;
-		}
-
-		public void setMobilePhoneNo(String mobilePhoneNo) {
-			this.mobilePhoneNo = mobilePhoneNo;
-		}
-
-		public String getNewPassword() {
-			return newPassword;
-		}
-
-		public void setNewPassword(String newPassword) {
-			this.newPassword = newPassword;
-		}
-
-		public String getVerificationCode() {
-			return verificationCode;
-		}
-
-		public void setVerificationCode(String verificationCode) {
-			this.verificationCode = verificationCode;
-		}
+		public String mobilePhoneNo;
+		public String newPassword;
+		public String inputCaptchaCode;
 	}
 }

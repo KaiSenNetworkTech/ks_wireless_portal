@@ -23,12 +23,12 @@ public class ModifyPasswordService extends
 
 	@Override
 	public WirelessPortalResult doBusiness(ModifyPasswordDO modifyPasswordDO) {
-		if (PasswordUtil.passwordFormatCheck(modifyPasswordDO.getNewPassword())) {
+		if (PasswordUtil.passwordFormatCheck(modifyPasswordDO.newPassword)) {
 			UserInfoDO userInfoDO = super.getUserInfoFromSession();
-			userInfoDO.setPassword(modifyPasswordDO.getNewPassword());
+			userInfoDO.setPassword(modifyPasswordDO.newPassword);
 
 			return StringUtils.equals(
-					DigestUtils.md5Hex(modifyPasswordDO.getOldPassword()),
+					DigestUtils.md5Hex(modifyPasswordDO.oldPassword),
 					userInfoDO.getPassword()) ? getResult(userService
 					.updateUserInfo(userInfoDO)) : WirelessPortalResult
 					.buildErrorResult(ResultEnum.OLD_PASSWORD_ERROR);
@@ -47,23 +47,7 @@ public class ModifyPasswordService extends
 	}
 
 	class ModifyPasswordDO {
-		private String oldPassword;
-		private String newPassword;
-
-		public String getOldPassword() {
-			return oldPassword;
-		}
-
-		public void setOldPassword(String oldPassword) {
-			this.oldPassword = oldPassword;
-		}
-
-		public String getNewPassword() {
-			return newPassword;
-		}
-
-		public void setNewPassword(String newPassword) {
-			this.newPassword = newPassword;
-		}
+		public String oldPassword;
+		public String newPassword;
 	}
 }
