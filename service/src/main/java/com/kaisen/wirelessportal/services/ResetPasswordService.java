@@ -10,7 +10,8 @@ public class ResetPasswordService extends
 		BaseService<ResetPasswordService.ResetPasswordDO> {
 
 	@Override
-	protected WirelessPortalResult doBusiness(ResetPasswordDO resetPasswordDO) {
+	protected WirelessPortalResult doBusiness(
+			final ResetPasswordDO resetPasswordDO) {
 		// TODO Auto-generated method stub
 		return null;
 	}

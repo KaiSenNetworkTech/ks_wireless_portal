@@ -6,26 +6,36 @@ import org.springframework.stereotype.Controller;
 
 import wirelessportal.common.utils.PasswordUtil;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.kaisen.usercenter.domain.UserInfoDO;
-import com.kaisen.usercenter.service.IUserService;
 import com.kaisen.wirelessportal.WirelessPortalResult;
 
 @Controller(value = "userRegister")
-public class UserRegisterService extends BaseService<UserInfoDO> {
-	@Reference(version = "1.0.0")
-	private IUserService userService;
+public class UserRegisterService extends
+		BaseService<UserRegisterService.UserRegisterDO> {
 
 	@Override
-	public WirelessPortalResult doBusiness(UserInfoDO userInfoDO) {
-		return PasswordUtil.passwordFormatCheck(userInfoDO.getPassword()) ? getResult(userService
-				.register(userInfoDO)) : WirelessPortalResult
+	public WirelessPortalResult doBusiness(final UserRegisterDO userRegisterDO) {
+		return PasswordUtil.passwordFormatCheck(userRegisterDO.getPassword()) ? getResult(userService
+				.register(userRegisterDO)) : WirelessPortalResult
 				.buildErrorResult(PASSWORD_FORMAT_ERROR);
 	}
 
 	@Override
-	protected UserInfoDO parseRequestBody(String requestBody) {
-		return JSON.parseObject(requestBody, UserInfoDO.class);
+	protected UserRegisterDO parseRequestBody(String requestBody) {
+		return JSON.parseObject(requestBody, UserRegisterDO.class);
+	}
+
+	class UserRegisterDO extends UserInfoDO {
+		private static final long serialVersionUID = -7818125790395418340L;
+		private String captchaCode;
+
+		public String getCaptchaCode() {
+			return captchaCode;
+		}
+
+		public void setCaptchaCode(String captchaCode) {
+			this.captchaCode = captchaCode;
+		}
 	}
 }

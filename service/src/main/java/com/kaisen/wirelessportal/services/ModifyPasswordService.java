@@ -8,21 +8,17 @@ import org.springframework.stereotype.Controller;
 
 import wirelessportal.common.utils.PasswordUtil;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.kaisen.common.result.ResultEnum;
 import com.kaisen.usercenter.domain.UserInfoDO;
-import com.kaisen.usercenter.service.IUserService;
 import com.kaisen.wirelessportal.WirelessPortalResult;
 
 @Controller(value = "modifyPassword")
 public class ModifyPasswordService extends
 		BaseService<ModifyPasswordService.ModifyPasswordDO> {
-	@Reference(version = "1.0.0")
-	private IUserService userService;
-
 	@Override
-	public WirelessPortalResult doBusiness(ModifyPasswordDO modifyPasswordDO) {
+	public WirelessPortalResult doBusiness(
+			final ModifyPasswordDO modifyPasswordDO) {
 		if (PasswordUtil.passwordFormatCheck(modifyPasswordDO.newPassword)) {
 			UserInfoDO userInfoDO = super.getUserInfoFromSession();
 			userInfoDO.setPassword(modifyPasswordDO.newPassword);

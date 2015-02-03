@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.kaisen.common.result.CallServiceResult;
 import com.kaisen.common.result.ResultEnum;
+import com.kaisen.finearts.service.IQuestionService;
 import com.kaisen.usercenter.domain.UserInfoDO;
 import com.kaisen.usercenter.service.IUserService;
 import com.kaisen.wirelessportal.WirelessPortalResult;
@@ -22,14 +23,17 @@ public abstract class BaseService<T> implements WirelessPortalService {
 	@Reference(version = "1.0.0")
 	protected IUserService userService;
 
+	@Reference(version = "1.0.0")
+	protected IQuestionService questionService;
+
 	@Override
 	public WirelessPortalResult process(String requestBody) {
 		return doBusiness(parseRequestBody(requestBody));
 	}
 
-	protected abstract T parseRequestBody(String requestBody);
+	protected abstract WirelessPortalResult doBusiness(final T requestBean);
 
-	protected abstract WirelessPortalResult doBusiness(T requestBean);
+	protected abstract T parseRequestBody(String requestBody);
 
 	protected WirelessPortalResult getResult(
 			CallServiceResult<?> callServiceResult) {

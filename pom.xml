@@ -158,6 +158,16 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.kaisen.finearts</groupId>
+			<artifactId>kaisen.finearts</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.kaisen.usercenter</groupId>
+		  <artifactId>usercenter.client</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
@@ -167,11 +177,6 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.4</version>
-		</dependency>
-		<dependency>
-		  <groupId>com.kaisen.usercenter</groupId>
-		  <artifactId>usercenter.client</artifactId>
-		  <version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
